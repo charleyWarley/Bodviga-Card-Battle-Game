@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjtjnfiyfwxn3"]
+[gd_scene load_steps=15 format=3 uid="uid://cjtjnfiyfwxn3"]
 
 [ext_resource type="PackedScene" uid="uid://drej3eqm5x3w4" path="res://scenes/card_manager.tscn" id="1_boj55"]
 [ext_resource type="Texture2D" uid="uid://br2iquxtfkhqe" path="res://images/background1.png" id="1_g5n17"]
@@ -10,8 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cr8rsu8n0mug6" path="res://scenes/opponent_deck.tscn" id="4_wh8sb"]
 [ext_resource type="Texture2D" uid="uid://fgcu3fvrd8yd" path="res://images/item_holder.png" id="5_0gm6l"]
 [ext_resource type="Script" path="res://scripts/input_manager.gd" id="6_yn2sr"]
-[ext_resource type="Script" path="res://scripts/card_manager.gd" id="7_hibtt"]
 [ext_resource type="Script" path="res://scripts/battle_manager.gd" id="8_cpan1"]
+[ext_resource type="PackedScene" uid="uid://chhdn00v78euk" path="res://scenes/player_discard_deck.tscn" id="8_g6suj"]
+[ext_resource type="PackedScene" uid="uid://d34fm3mwfkust" path="res://scenes/opponent_discard_deck.tscn" id="11_45wsm"]
 [ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_hand.gd" id="11_egg0w"]
 
 [node name="card_field" type="Control"]
@@ -33,101 +34,101 @@ texture = ExtResource("1_g5n17")
 
 [node name="CardSlots" type="Node2D" parent="."]
 
-[node name="EnemyCardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(372, 90)
 slot_type = "fighter"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("3_q45ts")
 
-[node name="EnemyCardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(372, 162)
 slot_type = "fighter"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("3_q45ts")
 
-[node name="EnemyCardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(372, 234)
 slot_type = "fighter"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("3_q45ts")
 
-[node name="EnemyCardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(430, 90)
 slot_type = "magic"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("4_hfdif")
 
-[node name="EnemyCardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(430, 162)
 slot_type = "magic"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("4_hfdif")
 
-[node name="EnemyCardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(430, 234)
 slot_type = "magic"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("4_hfdif")
 
-[node name="EnemyCardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(487, 90)
 slot_type = "item"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("5_0gm6l")
 
-[node name="EnemyCardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(487, 162)
 slot_type = "item"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("5_0gm6l")
 
-[node name="EnemyCardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="OpponentCardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(487, 234)
 slot_type = "item"
-is_enemy_cardslot = true
+is_opponent_cardslot = true
 image = ExtResource("5_0gm6l")
 
-[node name="CardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(279, 234)
 slot_type = "fighter"
 image = ExtResource("3_q45ts")
 
-[node name="CardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(278, 162)
 slot_type = "fighter"
 image = ExtResource("3_q45ts")
 
-[node name="CardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(278, 90)
 slot_type = "fighter"
 image = ExtResource("3_q45ts")
 
-[node name="CardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(220, 90)
 slot_type = "magic"
 image = ExtResource("4_hfdif")
 
-[node name="CardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(220, 162)
 slot_type = "magic"
 image = ExtResource("4_hfdif")
 
-[node name="CardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(220, 234)
 slot_type = "magic"
 image = ExtResource("4_hfdif")
 
-[node name="CardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(162, 90)
 slot_type = "item"
 image = ExtResource("5_0gm6l")
 
-[node name="CardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(162, 162)
 slot_type = "item"
 image = ExtResource("5_0gm6l")
 
-[node name="CardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
+[node name="PlayerCardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
 position = Vector2(162, 234)
 slot_type = "item"
 image = ExtResource("5_0gm6l")
@@ -143,6 +144,8 @@ script = ExtResource("3_4alux")
 card_manager = NodePath("../CardManager")
 CARD_WIDTH = 80.0
 
+[node name="PlayerDiscardDeck" parent="." instance=ExtResource("8_g6suj")]
+
 [node name="OpponentDeck" parent="." node_paths=PackedStringArray("card_manager", "hand") instance=ExtResource("4_wh8sb")]
 position = Vector2(579, 80)
 card_manager = NodePath("../CardManager")
@@ -154,14 +157,24 @@ script = ExtResource("11_egg0w")
 CARD_WIDTH = 45.0
 HAND_Y_POSITION = 15
 
+[node name="OpponentDiscardDeck" parent="." instance=ExtResource("11_45wsm")]
+
 [node name="CardManager" parent="." instance=ExtResource("1_boj55")]
-script = ExtResource("7_hibtt")
 
 [node name="InputManager" type="Node2D" parent="."]
 script = ExtResource("6_yn2sr")
 
-[node name="BattleManager" type="Node" parent="."]
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("player_health_label", "opponent_health_label", "end_turn_button", "opponent_deck", "opponent_hand", "player_deck", "card_manager", "player_discard_deck", "opponent_discard_deck")]
 script = ExtResource("8_cpan1")
+player_health_label = NodePath("../PlayerHealthLabel")
+opponent_health_label = NodePath("../OpponentHealthLabel")
+end_turn_button = NodePath("../EndTurnButton")
+opponent_deck = NodePath("../OpponentDeck")
+opponent_hand = NodePath("../OpponentHand")
+player_deck = NodePath("../PlayerDeck")
+card_manager = NodePath("../CardManager")
+player_discard_deck = NodePath("../PlayerDiscardDeck")
+opponent_discard_deck = NodePath("../OpponentDiscardDeck")
 
 [node name="EndTurnButton" type="Button" parent="."]
 layout_mode = 0
@@ -171,3 +184,25 @@ offset_right = 87.0
 offset_bottom = 292.0
 theme_override_font_sizes/font_size = 7
 text = "end turn"
+
+[node name="PlayerHealthLabel" type="RichTextLabel" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 46.0
+offset_top = 159.0
+offset_right = 86.0
+offset_bottom = 199.0
+theme_override_font_sizes/normal_font_size = 32
+fit_content = true
+scroll_active = false
+
+[node name="OpponentHealthLabel" type="RichTextLabel" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 557.0
+offset_top = 111.0
+offset_right = 597.0
+offset_bottom = 151.0
+theme_override_font_sizes/normal_font_size = 32
+fit_content = true
+scroll_active = false

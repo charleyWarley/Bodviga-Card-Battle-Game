@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://chhdn00v78euk"]
+
+[node name="PlayerDiscardDeck" type="Node2D"]
+position = Vector2(67, 110)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

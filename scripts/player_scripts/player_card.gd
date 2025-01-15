@@ -17,7 +17,7 @@ var large_collision_size := Vector2(74, 104)
 
 
 func _on_card_placed() -> void:
-	is_in_play = true
+	is_in_field = true
 	sprite.texture = card_small
 	collision_shape.shape.size = small_collision_size
 
@@ -49,8 +49,8 @@ func highlight_card(is_hovered: bool) -> void:
 		z_index = 0
 
 
-func flip() -> void:
-	if !is_in_play:
+func flip_card() -> void:
+	if !is_in_field:
 		set_sprite_image(card_large)
 	else:
 		if sprite.texture == card_small:

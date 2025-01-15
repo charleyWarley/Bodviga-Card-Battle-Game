@@ -8,7 +8,7 @@ func _ready() -> void:
 
 
 func flip_card() -> void:
-	if !is_in_play:
+	if !is_in_field:
 		set_sprite_image(card_small)
 	else:
 		if sprite.texture == card_back:

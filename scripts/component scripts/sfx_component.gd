@@ -4,6 +4,9 @@ class_name SFXComponent
 @export var sound1 : AudioStream
 @export var sound2 : AudioStream
 @export var sound3 : AudioStream
+@export var sound4 : AudioStream
+@export var sound5 : AudioStream
+@export var sound6 : AudioStream
 @export var target : Node2D
 
 var parent : AudioStreamPlayer
