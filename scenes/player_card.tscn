@@ -1,0 +1,90 @@
+[gd_scene load_steps=11 format=3 uid="uid://huca5xn4ql7p"]
+
+[ext_resource type="Script" path="res://scripts/player_scripts/player_card.gd" id="1_3qxyq"]
+[ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="2_kq2tk"]
+[ext_resource type="PackedScene" uid="uid://cj2tl6wuiibuo" path="res://scenes/card_sfx_component.tscn" id="3_m2bgn"]
+[ext_resource type="AudioStream" uid="uid://conbnh7ioq15n" path="res://audio/standin_sounds/card_pickup_standin.wav" id="4_v4w30"]
+[ext_resource type="AudioStream" uid="uid://cysss3xnp5qmh" path="res://audio/standin_sounds/card_drop_standin.wav" id="5_1ebim"]
+[ext_resource type="AudioStream" uid="uid://cdaqjgv6xcees" path="res://audio/jump0.wav" id="6_wh3aq"]
+
+[sub_resource type="Animation" id="Animation_dswgy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8vqan"]
+resource_name = "flip"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.095, 1), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"flip"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_evn5b"]
+_data = {
+"RESET": SubResource("Animation_dswgy"),
+"flip": SubResource("Animation_8vqan")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xyef2"]
+resource_local_to_scene = true
+size = Vector2(74, 104)
+
+[node name="card" type="Node2D" node_paths=PackedStringArray("area", "sprite")]
+position = Vector2(67, 270)
+script = ExtResource("1_3qxyq")
+area = NodePath("Area2D")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_kq2tk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_evn5b")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_xyef2")
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+
+[node name="SFXComponent" parent="sfx" node_paths=PackedStringArray("target") instance=ExtResource("3_m2bgn")]
+sound1 = ExtResource("4_v4w30")
+sound2 = ExtResource("5_1ebim")
+sound3 = ExtResource("6_wh3aq")
+target = NodePath("../..")

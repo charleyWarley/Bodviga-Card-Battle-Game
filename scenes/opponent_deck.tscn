@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr8rsu8n0mug6"]
+
+[ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="1_egb2t"]
+[ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_deck.gd" id="1_p6f00"]
+[ext_resource type="PackedScene" uid="uid://1mii1vheth53" path="res://scenes/opponent_card.tscn" id="2_4cwj8"]
+
+[node name="OpponentDeck" type="Node2D" node_paths=PackedStringArray("card_manager", "hand")]
+position = Vector2(67, 77)
+script = ExtResource("1_p6f00")
+card_scene = ExtResource("2_4cwj8")
+card_manager = NodePath("")
+hand = NodePath("")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_egb2t")

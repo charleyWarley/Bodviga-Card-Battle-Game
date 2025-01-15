@@ -1,0 +1,173 @@
+[gd_scene load_steps=14 format=3 uid="uid://cjtjnfiyfwxn3"]
+
+[ext_resource type="PackedScene" uid="uid://drej3eqm5x3w4" path="res://scenes/card_manager.tscn" id="1_boj55"]
+[ext_resource type="Texture2D" uid="uid://br2iquxtfkhqe" path="res://images/background1.png" id="1_g5n17"]
+[ext_resource type="Script" path="res://scripts/player_scripts/player_hand.gd" id="3_4alux"]
+[ext_resource type="Texture2D" uid="uid://ca7t4nmes4okd" path="res://images/fighter_holder.png" id="3_q45ts"]
+[ext_resource type="PackedScene" uid="uid://b8myiu1uulsjh" path="res://scenes/card_slot.tscn" id="3_q73jv"]
+[ext_resource type="Texture2D" uid="uid://djqmt4ge3046x" path="res://images/magic_holder.png" id="4_hfdif"]
+[ext_resource type="PackedScene" uid="uid://ceptw1g8s458t" path="res://scenes/player_deck.tscn" id="4_jrlgh"]
+[ext_resource type="PackedScene" uid="uid://cr8rsu8n0mug6" path="res://scenes/opponent_deck.tscn" id="4_wh8sb"]
+[ext_resource type="Texture2D" uid="uid://fgcu3fvrd8yd" path="res://images/item_holder.png" id="5_0gm6l"]
+[ext_resource type="Script" path="res://scripts/input_manager.gd" id="6_yn2sr"]
+[ext_resource type="Script" path="res://scripts/card_manager.gd" id="7_hibtt"]
+[ext_resource type="Script" path="res://scripts/battle_manager.gd" id="8_cpan1"]
+[ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_hand.gd" id="11_egg0w"]
+
+[node name="card_field" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_g5n17")
+
+[node name="CardSlots" type="Node2D" parent="."]
+
+[node name="EnemyCardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(372, 90)
+slot_type = "fighter"
+is_enemy_cardslot = true
+image = ExtResource("3_q45ts")
+
+[node name="EnemyCardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(372, 162)
+slot_type = "fighter"
+is_enemy_cardslot = true
+image = ExtResource("3_q45ts")
+
+[node name="EnemyCardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(372, 234)
+slot_type = "fighter"
+is_enemy_cardslot = true
+image = ExtResource("3_q45ts")
+
+[node name="EnemyCardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(430, 90)
+slot_type = "magic"
+is_enemy_cardslot = true
+image = ExtResource("4_hfdif")
+
+[node name="EnemyCardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(430, 162)
+slot_type = "magic"
+is_enemy_cardslot = true
+image = ExtResource("4_hfdif")
+
+[node name="EnemyCardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(430, 234)
+slot_type = "magic"
+is_enemy_cardslot = true
+image = ExtResource("4_hfdif")
+
+[node name="EnemyCardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(487, 90)
+slot_type = "item"
+is_enemy_cardslot = true
+image = ExtResource("5_0gm6l")
+
+[node name="EnemyCardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(487, 162)
+slot_type = "item"
+is_enemy_cardslot = true
+image = ExtResource("5_0gm6l")
+
+[node name="EnemyCardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(487, 234)
+slot_type = "item"
+is_enemy_cardslot = true
+image = ExtResource("5_0gm6l")
+
+[node name="CardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(279, 234)
+slot_type = "fighter"
+image = ExtResource("3_q45ts")
+
+[node name="CardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(278, 162)
+slot_type = "fighter"
+image = ExtResource("3_q45ts")
+
+[node name="CardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(278, 90)
+slot_type = "fighter"
+image = ExtResource("3_q45ts")
+
+[node name="CardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(220, 90)
+slot_type = "magic"
+image = ExtResource("4_hfdif")
+
+[node name="CardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(220, 162)
+slot_type = "magic"
+image = ExtResource("4_hfdif")
+
+[node name="CardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(220, 234)
+slot_type = "magic"
+image = ExtResource("4_hfdif")
+
+[node name="CardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(162, 90)
+slot_type = "item"
+image = ExtResource("5_0gm6l")
+
+[node name="CardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(162, 162)
+slot_type = "item"
+image = ExtResource("5_0gm6l")
+
+[node name="CardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
+position = Vector2(162, 234)
+slot_type = "item"
+image = ExtResource("5_0gm6l")
+
+[node name="PlayerDeck" parent="." node_paths=PackedStringArray("card_manager", "hand") instance=ExtResource("4_jrlgh")]
+position = Vector2(67, 240)
+card_manager = NodePath("../CardManager")
+hand = NodePath("../PlayerHand")
+
+[node name="PlayerHand" type="Node2D" parent="." node_paths=PackedStringArray("card_manager")]
+position = Vector2(67, 240)
+script = ExtResource("3_4alux")
+card_manager = NodePath("../CardManager")
+CARD_WIDTH = 80.0
+
+[node name="OpponentDeck" parent="." node_paths=PackedStringArray("card_manager", "hand") instance=ExtResource("4_wh8sb")]
+position = Vector2(579, 80)
+card_manager = NodePath("../CardManager")
+hand = NodePath("../OpponentHand")
+
+[node name="OpponentHand" type="Node2D" parent="."]
+position = Vector2(579, 80)
+script = ExtResource("11_egg0w")
+CARD_WIDTH = 45.0
+HAND_Y_POSITION = 15
+
+[node name="CardManager" parent="." instance=ExtResource("1_boj55")]
+script = ExtResource("7_hibtt")
+
+[node name="InputManager" type="Node2D" parent="."]
+script = ExtResource("6_yn2sr")
+
+[node name="BattleManager" type="Node" parent="."]
+script = ExtResource("8_cpan1")
+
+[node name="EndTurnButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 273.0
+offset_right = 87.0
+offset_bottom = 292.0
+theme_override_font_sizes/font_size = 7
+text = "end turn"

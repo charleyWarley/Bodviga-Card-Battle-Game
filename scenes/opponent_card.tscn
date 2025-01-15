@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://1mii1vheth53"]
+
+[ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_card.gd" id="1_w4htv"]
+[ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="2_pwb2s"]
+[ext_resource type="PackedScene" uid="uid://cj2tl6wuiibuo" path="res://scenes/card_sfx_component.tscn" id="3_punk4"]
+
+[sub_resource type="Animation" id="Animation_21qgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jrc1g"]
+resource_name = "flip"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.095, 1), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"flip_card"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5rfh"]
+_data = {
+"RESET": SubResource("Animation_21qgg"),
+"flip": SubResource("Animation_jrc1g")
+}
+
+[node name="OpponentCard" type="Node2D" node_paths=PackedStringArray("sprite")]
+position = Vector2(579, 80)
+script = ExtResource("1_w4htv")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pwb2s")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_b5rfh")
+}
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+
+[node name="SFXComponent" parent="sfx" instance=ExtResource("3_punk4")]
+script = null
