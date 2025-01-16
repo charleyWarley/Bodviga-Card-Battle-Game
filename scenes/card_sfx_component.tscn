@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cj2tl6wuiibuo"]
 
-[ext_resource type="Script" path="res://scripts/component scripts/card_sfx_component.gd" id="1_efx4u"]
+[ext_resource type="Script" path="res://scripts/component scripts/card_sfx.gd" id="1_efx4u"]
 
 [node name="CardSFXComponent" type="Node"]
 script = ExtResource("1_efx4u")

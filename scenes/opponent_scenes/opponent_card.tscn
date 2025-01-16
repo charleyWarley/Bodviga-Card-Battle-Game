@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_card.gd" id="1_w4htv"]
 [ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="2_pwb2s"]
-[ext_resource type="PackedScene" uid="uid://cj2tl6wuiibuo" path="res://scenes/card_sfx_component.tscn" id="3_punk4"]
+[ext_resource type="Script" path="res://scripts/component scripts/card_sfx.gd" id="3_eq6op"]
 
 [sub_resource type="Animation" id="Animation_21qgg"]
 length = 0.001
@@ -68,7 +68,6 @@ libraries = {
 "": SubResource("AnimationLibrary_b5rfh")
 }
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
-
-[node name="SFXComponent" parent="sfx" instance=ExtResource("3_punk4")]
-script = null
+[node name="sfx" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("3_eq6op")
+target = NodePath("..")

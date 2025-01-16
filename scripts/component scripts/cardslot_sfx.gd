@@ -1,4 +1,4 @@
-extends SFXComponent
+extends SFX
 
 func _on_cardslot_filled() -> void:
 	play_sound(sound1)

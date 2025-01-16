@@ -1,9 +1,8 @@
-extends SFXComponent
+extends SFX
 
 
 func _on_card_drawn() -> void:
-	parent.set_stream(sound1)
-	parent.play()
+	play_sound(sound1)
 
 
 func connect_signals() -> void:

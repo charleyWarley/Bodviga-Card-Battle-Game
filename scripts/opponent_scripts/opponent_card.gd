@@ -1,7 +1,6 @@
 extends Card
 class_name OpponentCard
 
-
 func _ready() -> void:
 	parent = get_parent()
 	connect_signals()

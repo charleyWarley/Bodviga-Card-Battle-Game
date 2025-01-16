@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_ixrfl"]
 [ext_resource type="PackedScene" uid="uid://cjtjnfiyfwxn3" path="res://scenes/card_field.tscn" id="2_hs1wq"]
-[ext_resource type="Script" path="res://scripts/component scripts/ambience_component.gd" id="3_17auc"]
+[ext_resource type="Script" path="res://scripts/component scripts/ambience.gd" id="3_17auc"]
 [ext_resource type="AudioStream" uid="uid://eghm3pwugqou" path="res://audio/Ambience_begin.wav" id="4_dp54o"]
 [ext_resource type="AudioStream" uid="uid://qxs453fymfn3" path="res://audio/Ambience_loop.wav" id="5_pd3ir"]
 
@@ -22,8 +22,6 @@ mouse_filter = 1
 
 [node name="ambience" type="AudioStreamPlayer" parent="."]
 volume_db = -14.991
-
-[node name="AmbienceComponent" type="Node" parent="ambience"]
 script = ExtResource("3_17auc")
 ambience_begin = ExtResource("4_dp54o")
 ambience_loop = ExtResource("5_pd3ir")

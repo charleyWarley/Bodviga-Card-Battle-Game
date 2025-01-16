@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/player_scripts/player_deck.gd" id="1_evmot"]
 [ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="2_hx7sb"]
-[ext_resource type="PackedScene" uid="uid://huca5xn4ql7p" path="res://scenes/player_card.tscn" id="2_vvdss"]
-[ext_resource type="Script" path="res://scripts/component scripts/deck_sfx_component.gd" id="3_qmvgq"]
+[ext_resource type="PackedScene" uid="uid://huca5xn4ql7p" path="res://scenes/player_scenes/player_card.tscn" id="2_vvdss"]
+[ext_resource type="Script" path="res://scripts/component scripts/deck_sfx.gd" id="3_qmvgq"]
 [ext_resource type="AudioStream" uid="uid://cfslbx5o8crid" path="res://audio/cardPickup2.wav" id="4_0gcf2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uq34e"]
@@ -24,9 +24,7 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_uq34e")
 
-[node name="sfx" type="AudioStreamPlayer" parent="."]
-
-[node name="DeckSFXComponent" type="Node" parent="sfx" node_paths=PackedStringArray("target")]
+[node name="sfx" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_qmvgq")
 sound1 = ExtResource("4_0gcf2")
-target = NodePath("../..")
+target = NodePath("..")
