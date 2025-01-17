@@ -11,7 +11,7 @@ var screen_center_x : float
 
 
 func _ready() -> void:
-	screen_center_x = get_viewport().size.x / 2
+	screen_center_x = 638 / 2
 
 
 func add_to_hand(card: Card, speed: float) -> void:

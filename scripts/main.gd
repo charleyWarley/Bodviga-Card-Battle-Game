@@ -1,6 +1,6 @@
 extends Control
 
-var is_fullscreen := false
+var is_fullscreen := true
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("fullscreen"):
@@ -10,7 +10,7 @@ func _process(_delta: float) -> void:
 
 func set_fullscreen():
 	if is_fullscreen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		

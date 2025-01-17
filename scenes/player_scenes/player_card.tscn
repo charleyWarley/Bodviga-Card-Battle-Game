@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://huca5xn4ql7p"]
+[gd_scene load_steps=12 format=3 uid="uid://huca5xn4ql7p"]
 
 [ext_resource type="Script" path="res://scripts/player_scripts/player_card.gd" id="1_3qxyq"]
 [ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="2_kq2tk"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://conbnh7ioq15n" path="res://audio/standin_sounds/card_pickup_standin.wav" id="4_v4w30"]
 [ext_resource type="AudioStream" uid="uid://cysss3xnp5qmh" path="res://audio/standin_sounds/card_drop_standin.wav" id="5_1ebim"]
 [ext_resource type="AudioStream" uid="uid://cdaqjgv6xcees" path="res://audio/jump0.wav" id="6_wh3aq"]
+[ext_resource type="PackedScene" uid="uid://7l8k5h5mssv8" path="res://scenes/damage_indicator.tscn" id="7_gurpo"]
 
 [sub_resource type="Animation" id="Animation_dswgy"]
 length = 0.001
@@ -60,13 +61,15 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xyef2"]
 resource_local_to_scene = true
-size = Vector2(74, 104)
+size = Vector2(41, 58.5)
 
-[node name="PlayerCard" type="Node2D" node_paths=PackedStringArray("area", "sprite")]
+[node name="PlayerCard" type="Node2D" node_paths=PackedStringArray("area", "sprite", "damage_indicator", "health_label")]
 position = Vector2(67, 270)
 script = ExtResource("1_3qxyq")
 area = NodePath("Area2D")
 sprite = NodePath("Sprite2D")
+damage_indicator = NodePath("DamageIndicator")
+health_label = NodePath("DamageIndicator/HealthLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_kq2tk")
@@ -77,6 +80,7 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_xyef2")
@@ -87,3 +91,23 @@ sound1 = ExtResource("4_v4w30")
 sound2 = ExtResource("5_1ebim")
 sound3 = ExtResource("6_wh3aq")
 target = NodePath("..")
+
+[node name="DamageIndicator" parent="." instance=ExtResource("7_gurpo")]
+
+[node name="HealthLabel" type="RichTextLabel" parent="DamageIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = 11.0
+offset_right = 10.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+text = "10"
+fit_content = true
+scroll_active = false

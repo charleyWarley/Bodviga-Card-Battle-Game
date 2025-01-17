@@ -34,7 +34,7 @@ func _on_card_right_clicked(card: Card) -> void:
 
 
 func _ready() -> void:
-	screen_size = get_viewport_rect().size
+	screen_size = Vector2(638, 358)
 	input_manager.connect("left_mouse_button_released", 
 		Callable(self, "_on_left_mouse_button_released"))
 	input_manager.connect("card_left_clicked", Callable(self, "_on_card_left_clicked"))

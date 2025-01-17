@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://1mii1vheth53"]
+[gd_scene load_steps=8 format=3 uid="uid://1mii1vheth53"]
 
 [ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_card.gd" id="1_w4htv"]
 [ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="2_pwb2s"]
 [ext_resource type="Script" path="res://scripts/component scripts/card_sfx.gd" id="3_eq6op"]
+[ext_resource type="PackedScene" uid="uid://7l8k5h5mssv8" path="res://scenes/damage_indicator.tscn" id="4_ds6po"]
 
 [sub_resource type="Animation" id="Animation_21qgg"]
 length = 0.001
@@ -55,10 +56,12 @@ _data = {
 "flip": SubResource("Animation_jrc1g")
 }
 
-[node name="OpponentCard" type="Node2D" node_paths=PackedStringArray("sprite")]
+[node name="OpponentCard" type="Node2D" node_paths=PackedStringArray("sprite", "damage_indicator", "health_label")]
 position = Vector2(579, 80)
 script = ExtResource("1_w4htv")
 sprite = NodePath("Sprite2D")
+damage_indicator = NodePath("DamageIndicator")
+health_label = NodePath("DamageIndicator/HealthLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_pwb2s")
@@ -71,3 +74,16 @@ libraries = {
 [node name="sfx" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_eq6op")
 target = NodePath("..")
+
+[node name="DamageIndicator" parent="." instance=ExtResource("4_ds6po")]
+
+[node name="HealthLabel" type="RichTextLabel" parent="DamageIndicator"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 33.0
+offset_right = 30.0
+offset_bottom = 56.0
+mouse_filter = 1
+text = "10"
+fit_content = true
+scroll_active = false

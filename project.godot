@@ -18,9 +18,11 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
-window/stretch/mode="viewport"
+window/size/viewport_width=638
+window/size/viewport_height=358
+window/size/mode=3
+window/size/initial_position_type=2
+window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 window/vsync/vsync_mode=0
 

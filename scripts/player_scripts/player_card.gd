@@ -16,7 +16,12 @@ var large_collision_size := Vector2(74, 104)
 @onready var collision_shape := $Area2D/CollisionShape2D
 
 
+func _on_returned_to_hand(duration:=DEFAULT_DURATION) -> void:
+	animate_card_to_position(hand_position, duration)
+
+
 func _on_card_placed() -> void:
+	z_index = 0
 	is_in_field = true
 	sprite.texture = card_small
 	collision_shape.shape.size = small_collision_size
@@ -35,6 +40,7 @@ func _on_mouse_exited() -> void:
 
 
 func _ready() -> void:
+	collision_shape.shape.size = large_collision_size
 	parent = get_parent()
 	animation.play("flip")
 	connect_signals()

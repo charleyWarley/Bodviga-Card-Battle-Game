@@ -85,7 +85,7 @@ func direct_attack(attacking_card: Card, attacker: String) -> void:
 	var new_position_x
 	match attacker:
 		"Opponent": new_position_x = 0 #opponent attacks left of screen
-		"Player": new_position_x = get_viewport().size.x #player attacks right of screen
+		"Player": new_position_x = 638 #player attacks right of screen
 	var new_position := Vector2(new_position_x, attacking_card.position.y)
 	#tween to attack position
 	var tween = get_tree().create_tween()
