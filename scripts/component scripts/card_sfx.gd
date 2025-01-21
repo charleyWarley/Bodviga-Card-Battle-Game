@@ -14,8 +14,19 @@ func _on_returned_to_hand() -> void:
 	play_sound(sound2)
 
 
+func _on_damage_blocked() -> void:
+	play_sound(sound6)
+	await finished
+	randomize()
+	sound4 = load(CardSounds.PAIN_SOUNDS[randi_range(1, CardSounds.PAIN_SOUNDS.size())])
+	play_sound(sound4)
+	print("blocked")
+
+
 func _on_damage_taken(_damage, is_attacker) -> void:
-	if is_attacker: return
+	if is_attacker: 
+		print("attacker damaged")
+		return
 	randomize()
 	sound4 = load(CardSounds.PAIN_SOUNDS[randi_range(1, CardSounds.PAIN_SOUNDS.size())])
 	play_sound(sound4)
@@ -41,3 +52,4 @@ func connect_signals() -> void:
 	target.connect("card_flipped", Callable(self, "_on_card_flipped"))
 	target.connect("damage_taken", Callable(self, "_on_damage_taken"))
 	target.connect("card_destroyed", Callable(self, "_on_card_destroyed"))
+	target.connect("damage_blocked", Callable(self, "_on_damage_blocked"))

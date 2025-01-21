@@ -22,6 +22,10 @@ func _input(event: InputEvent) -> void:
 				card_left_clicked.emit(left_clicked_card)
 		else:
 			left_mouse_button_released.emit()
+			await get_tree().create_timer(0.15).timeout
+			var hovered_card : PlayerCard = raycast_at_cursor()
+			if hovered_card:
+				hovered_card.highlight_card(true)
 	elif event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed:
 			var right_clicked_card : Card = raycast_at_cursor()

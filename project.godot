@@ -14,7 +14,18 @@ config/name="Bodvigan Magic"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 run/max_fps=60
+boot_splash/bg_color=Color(0.0450461, 0.0212734, 0.0440155, 1)
+boot_splash/image="res://images/splashscreen.png"
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://global.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
+gdscript/warnings/integer_division=0
 
 [display]
 
@@ -42,4 +53,7 @@ fullscreen={
 
 textures/canvas_textures/default_texture_filter=0
 textures/default_filters/use_nearest_mipmap_filter=true
+textures/default_filters/anisotropic_filtering_level=0
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+environment/defaults/default_clear_color=Color(0.144063, 0.144063, 0.144063, 1)
 2d/snap/snap_2d_transforms_to_pixel=true
