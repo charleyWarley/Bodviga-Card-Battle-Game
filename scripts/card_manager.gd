@@ -23,7 +23,7 @@ func _on_card_left_clicked(card: Card) -> void:
 		start_drag(card)
 		return
 	if battle_manager.opponent_cards_in_field.size() == 0:
-		battle_manager.direct_attack(card, battle_manager.AttackerType.PLAYER)
+		battle_manager.direct_attack(card, "Player")
 	else:
 		select_card_for_battle(card)
 
@@ -31,8 +31,6 @@ func _on_card_left_clicked(card: Card) -> void:
 func _on_card_right_clicked(card: Card) -> void:
 	if card.is_in_field:
 		card.emit_signal("card_flipped")
-	else:
-		card.emit_signal("card_examined")
 
 
 func _ready() -> void:
@@ -52,31 +50,27 @@ func _physics_process(_delta: float) -> void:
 
 
 func select_card_for_battle(card: Card) -> void:
-	#if there's no selected fighter, make the card clicked the selected fighter
-	if !selected_fighter: 
-		selected_fighter = card
-		card.position.x += 20
-		return
-	#if the selected fighter was clicked, deselect the fighter
-	if selected_fighter == card:
-		card.position.x -= 20
-		selected_fighter = null
-	#if a card is selected but a new card was clicked, deselect the old card and select the new one
+	if selected_fighter:
+		if selected_fighter == card:
+			card.position.x -= 20
+			selected_fighter = null
+		else:
+			selected_fighter = card
+			selected_fighter.position.x -= 20
+			card.position.x += 20
 	else:
-		selected_fighter.position.x -= 20
 		selected_fighter = card
 		card.position.x += 20
 
 
-#called when a card is clicked and can be moved
-func start_drag(card: PlayerCard) -> void:
-	moving_card = card
+##called when a card is clicked and can be moved
+func start_drag(card: Card) -> void:
 	card.emit_signal("picked_up")
-	card.make_small()
+	moving_card = card
 	card.z_index = 2
 	card.scale = Vector2(1.1, 1.1)
 
-#called when lmb is released when dragging a card; place card or return it to the hand
+##called when lmb is released when dragging a card; place card or return it to the hand
 func finish_drag() -> void:
 	moving_card.emit_signal("dropped")
 	moving_card.scale = Vector2(1.05, 1.05)
@@ -96,17 +90,15 @@ func attempt_place_card(cardslot: CardSlot) -> void:
 
 
 func check_move_rejected(cardslot: CardSlot) -> bool:
-	var is_not_free_player_slot := (
-		cardslot.is_slot_full or cardslot.is_opponent_cardslot)
-	var is_not_matching : bool = (moving_card.card_type != cardslot.SlotType)
-	var cannot_place_fighter : bool = (
-		cardslot.SlotType == moving_card.CardType.FIGHTER and did_play_fighter_card)
+	var is_not_free_player_slot := (cardslot.is_slot_full or cardslot.is_opponent_cardslot)
+	var is_not_matching := (moving_card.card_type != cardslot.slot_type)
+	var cannot_place_fighter := (cardslot.slot_type == "fighter" and did_play_fighter_card)
 	return (is_not_free_player_slot or is_not_matching or cannot_place_fighter)
 
 
-#called when a card can be placed in a slot after lmb is released
+##called when a card can be placed in a slot after lmb is released
 func place_card_in_slot(cardslot: CardSlot) -> void:
-	if cardslot.SlotType == moving_card.CardType.FIGHTER:
+	if cardslot.slot_type == "fighter":
 		did_play_fighter_card = true
 	cardslot.get_node("Area2D/CollisionShape2D").disabled = true ##make cardslot undetectable when moving other cards
 	moving_card.animate_card_to_position(cardslot.position)
@@ -135,8 +127,11 @@ func raycast_check_for_cardslot() -> CardSlot:
 	return null
 
 
+
+
 ##called when a card cannot be placed in a slot after lmb is released
 func reject_move() -> void:
+	moving_card.scale = Vector2(1.0, 1.0)
 	moving_card.emit_signal("returned_to_hand")
 	moving_card = null
 

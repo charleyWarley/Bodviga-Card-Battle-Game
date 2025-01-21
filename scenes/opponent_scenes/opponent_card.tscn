@@ -1,136 +1,89 @@
-[gd_scene load_steps=11 format=3 uid="uid://1mii1vheth53"]
+[gd_scene load_steps=8 format=3 uid="uid://1mii1vheth53"]
 
 [ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_card.gd" id="1_w4htv"]
-[ext_resource type="Shader" path="res://shaders/card.gdshader" id="2_0epe8"]
 [ext_resource type="Texture2D" uid="uid://c3udnpjfbqo33" path="res://images/card_images/card_back.png" id="2_pwb2s"]
-[ext_resource type="Script" path="res://scripts/shadow_sprite.gd" id="3_11h3v"]
 [ext_resource type="Script" path="res://scripts/component scripts/card_sfx.gd" id="3_eq6op"]
 [ext_resource type="PackedScene" uid="uid://7l8k5h5mssv8" path="res://scenes/damage_indicator.tscn" id="4_ds6po"]
-[ext_resource type="AudioStream" uid="uid://cdaqjgv6xcees" path="res://audio/jump0.wav" id="4_kh3ol"]
-[ext_resource type="Texture2D" uid="uid://b71npdq2ygo4r" path="res://images/card_images/empty_small.png" id="5_e73jd"]
-[ext_resource type="AudioStream" uid="uid://b40ji7x6b07g4" path="res://audio/standin_sounds/block_sound.wav" id="5_f3nqt"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwla4"]
-resource_local_to_scene = true
-shader = ExtResource("2_0epe8")
-shader_parameter/isInRadians = false
-shader_parameter/xRadians = 0.0
-shader_parameter/yRadians = 0.0
-shader_parameter/zRadians = 0.0
-shader_parameter/xDegrees = 0.0
-shader_parameter/yDegrees = 0.0
-shader_parameter/zDegrees = null
+[sub_resource type="Animation" id="Animation_21qgg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
 
-[node name="OpponentCard" type="Node2D" node_paths=PackedStringArray("card_image", "inside_image", "damage_indicator", "health_label", "attack_label", "defense_label", "stats_labels", "shadow")]
+[sub_resource type="Animation" id="Animation_jrc1g"]
+resource_name = "flip"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.095, 1), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"flip_card"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b5rfh"]
+_data = {
+"RESET": SubResource("Animation_21qgg"),
+"flip": SubResource("Animation_jrc1g")
+}
+
+[node name="OpponentCard" type="Node2D" node_paths=PackedStringArray("sprite", "damage_indicator", "health_label")]
 position = Vector2(579, 80)
 script = ExtResource("1_w4htv")
-card_image = NodePath("CardImage")
-inside_image = NodePath("InsideImage")
+sprite = NodePath("Sprite2D")
 damage_indicator = NodePath("DamageIndicator")
-health_label = NodePath("HealthLabel")
-attack_label = NodePath("StatsLabels/AttackLabel")
-defense_label = NodePath("StatsLabels/DefenseLabel")
-stats_labels = NodePath("StatsLabels")
-shadow = NodePath("Shadow")
+health_label = NodePath("DamageIndicator/HealthLabel")
 
-[node name="InsideImage" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_rwla4")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_right = 44.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(22.5, 30)
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_pwb2s")
 
-[node name="DamageIndicator" parent="." instance=ExtResource("4_ds6po")]
-visible = false
-offset_left = -21.5
-offset_top = -29.0
-offset_right = 19.5
-offset_bottom = 17.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_b5rfh")
+}
 
-[node name="CardImage" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_rwla4")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 1.0
-offset_right = 44.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(22.5, 30)
-texture = ExtResource("5_e73jd")
-
-[node name="Shadow" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 0.262745)
-show_behind_parent = true
-z_index = -1
-offset_left = -22.0
-offset_top = -27.0
-offset_right = 21.0
-offset_bottom = 33.0
-texture = ExtResource("2_pwb2s")
-script = ExtResource("3_11h3v")
-is_opponent = true
-
-[node name="SFX" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("target")]
+[node name="sfx" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_eq6op")
 target = NodePath("..")
-sound3 = ExtResource("4_kh3ol")
-sound6 = ExtResource("5_f3nqt")
 
-[node name="HealthLabel" type="RichTextLabel" parent="."]
-texture_filter = 1
-offset_left = -20.0
-offset_top = 17.0
-offset_right = -9.0
-offset_bottom = 30.0
-mouse_filter = 1
-theme_override_colors/default_color = Color(0.52075, 0.541167, 0.694679, 1)
-theme_override_font_sizes/normal_font_size = 9
-text = "10"
-fit_content = true
-scroll_active = false
+[node name="DamageIndicator" parent="." instance=ExtResource("4_ds6po")]
 
-[node name="StatsLabels" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="AttackLabel" type="RichTextLabel" parent="StatsLabels"]
-texture_filter = 1
+[node name="HealthLabel" type="RichTextLabel" parent="DamageIndicator"]
 layout_mode = 0
-offset_left = -5.0
-offset_top = 17.0
-offset_right = 6.0
-offset_bottom = 30.0
+offset_left = 10.0
+offset_top = 33.0
+offset_right = 30.0
+offset_bottom = 56.0
 mouse_filter = 1
-theme_override_colors/default_color = Color(1, 0, 0.180392, 1)
-theme_override_font_sizes/normal_font_size = 9
-text = "10"
-fit_content = true
-scroll_active = false
-
-[node name="DefenseLabel" type="RichTextLabel" parent="StatsLabels"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 9.0
-offset_top = 17.0
-offset_right = 20.0
-offset_bottom = 30.0
-mouse_filter = 1
-theme_override_colors/default_color = Color(0.278431, 0.541176, 1, 1)
-theme_override_font_sizes/normal_font_size = 9
 text = "10"
 fit_content = true
 scroll_active = false

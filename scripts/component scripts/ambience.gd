@@ -7,7 +7,7 @@ extends AudioStreamPlayer
 func _on_audio_finished() -> void:
 	if stream == ambience_begin:
 		set_stream(ambience_loop)
-		disconnect("finished", Callable(self, "_on_audio_finished"))
+		print("ambience looped")
 		play()
 
 

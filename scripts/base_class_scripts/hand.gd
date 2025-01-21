@@ -1,11 +1,9 @@
 extends Node2D
 class_name Hand
 
-
 @export var CARD_WIDTH : float
 @export var HAND_Y_POSITION := 339
 
-const SCREEN_WIDTH := 638
 const REODER_SPEED := 0.2
 
 var current_hand := []
@@ -13,7 +11,7 @@ var screen_center_x : float
 
 
 func _ready() -> void:
-	screen_center_x = SCREEN_WIDTH / 2
+	screen_center_x = 638 / 2
 
 
 func add_to_hand(card: Card, speed: float) -> void:

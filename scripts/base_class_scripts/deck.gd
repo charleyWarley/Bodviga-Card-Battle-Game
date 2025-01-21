@@ -17,11 +17,10 @@ var was_turn_taken := false
 
 
 func _ready() -> void:
-	connect_signals()
-	await get_tree().create_timer(1).timeout
 	initialize_deck()
 	randomize()
 	deck.shuffle()
+	connect_signals()
 	#await get_tree().create_timer(0.1).timeout
 	for i in range(STARTING_HAND_SIZE):
 		draw_card()

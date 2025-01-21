@@ -1,21 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bog1tvatc0s81"]
+[gd_scene load_steps=6 format=3 uid="uid://bog1tvatc0s81"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_ixrfl"]
 [ext_resource type="PackedScene" uid="uid://cjtjnfiyfwxn3" path="res://scenes/card_field.tscn" id="2_hs1wq"]
 [ext_resource type="Script" path="res://scripts/component scripts/ambience.gd" id="3_17auc"]
 [ext_resource type="AudioStream" uid="uid://eghm3pwugqou" path="res://audio/Ambience_begin.wav" id="4_dp54o"]
 [ext_resource type="AudioStream" uid="uid://qxs453fymfn3" path="res://audio/Ambience_loop.wav" id="5_pd3ir"]
-[ext_resource type="Shader" path="res://shaders/crt.gdshader" id="6_wd8rm"]
-[ext_resource type="Script" path="res://scripts/crt_filter.gd" id="7_ocxhp"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1thjl"]
-shader = ExtResource("6_wd8rm")
-shader_parameter/curvature = 6.067
-shader_parameter/crt_brightness = 0.337
-shader_parameter/crt_ghost = 2.062
 
 [node name="main" type="Control"]
-texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,16 +25,3 @@ volume_db = -14.991
 script = ExtResource("3_17auc")
 ambience_begin = ExtResource("4_dp54o")
 ambience_loop = ExtResource("5_pd3ir")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="crt_filter" type="ColorRect" parent="CanvasLayer"]
-z_index = 20
-material = SubResource("ShaderMaterial_1thjl")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("7_ocxhp")

@@ -1,10 +1,11 @@
 extends Node2D
 class_name CardSlot
 
+@warning_ignore("unused_signal")
 signal cardslot_filled
 
 
-@export_enum("FIGHTER", "MAGIC", "ITEM") var SlotType : int
+@export var slot_type : String
 @export var is_opponent_cardslot := false
 @export var image : CompressedTexture2D
 

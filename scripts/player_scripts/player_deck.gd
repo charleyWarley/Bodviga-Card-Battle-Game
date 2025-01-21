@@ -17,9 +17,7 @@ func initialize_deck() -> void:
 	"bolsaht", 
 	"kwartni", 
 	"ludra-cayn",
-	"kwartni",
-	"kettet",
-	"kettet",
+	"kwartni", 
 	"ludra-cayn", 
 	"kwartni"]
 
@@ -31,10 +29,10 @@ func initialize_card(drawn_card: String) -> Card:
 	new_card.power = card_database.CARDS[drawn_card][0]
 	new_card.defense = card_database.CARDS[drawn_card][1]
 	new_card.health = 10
-	new_card.inside_large = load(card_database.CARDS[drawn_card][2])
+	new_card.card_large = load(card_database.CARDS[drawn_card][2])
 	new_card.card_type = card_database.CARDS[drawn_card][3]
-	var inside_small_path : String = new_card.inside_large.get_path().replace("large", "small")
-	new_card.inside_small = load(inside_small_path)
+	var card_small_path : String = new_card.card_large.get_path().replace("large", "small")
+	new_card.card_small = load(card_small_path)
 	return new_card
 
 
@@ -44,6 +42,7 @@ func connect_signals() -> void:
 
 func reset_draw() -> void:
 	was_turn_taken = false
+
 
 
 func disable_deck() -> void:

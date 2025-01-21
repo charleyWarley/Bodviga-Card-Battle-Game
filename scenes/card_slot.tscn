@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8myiu1uulsjh"]
 
 [ext_resource type="Script" path="res://scripts/base_class_scripts/card_slot.gd" id="1_hjckf"]
-[ext_resource type="Texture2D" uid="uid://ca7t4nmes4okd" path="res://images/fighter_holder.png" id="2_45aey"]
+[ext_resource type="Texture2D" uid="uid://1jxr1hwqnnbm" path="res://images/card_holder.png" id="1_n3tbk"]
 [ext_resource type="Script" path="res://scripts/component scripts/cardslot_sfx.gd" id="3_hp27j"]
 [ext_resource type="AudioStream" uid="uid://trb24r16p2he" path="res://audio/standin_sounds/carpetstep1.mp3" id="4_n6lka"]
 
@@ -12,10 +12,9 @@ size = Vector2(43, 60)
 script = ExtResource("1_hjckf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_45aey")
+texture = ExtResource("1_n3tbk")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -25,5 +24,5 @@ shape = SubResource("RectangleShape2D_oa4ce")
 
 [node name="sfx" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("3_hp27j")
-target = NodePath("..")
 sound1 = ExtResource("4_n6lka")
+target = NodePath("..")

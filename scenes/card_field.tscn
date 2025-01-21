@@ -24,7 +24,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="background" type="TextureRect" parent="."]
-z_index = -20
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,125 +35,129 @@ texture = ExtResource("1_g5n17")
 [node name="CardSlots" type="Node2D" parent="."]
 
 [node name="OpponentCardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(405, 90)
+position = Vector2(372, 90)
+slot_type = "fighter"
 is_opponent_cardslot = true
 image = ExtResource("3_q45ts")
 
 [node name="OpponentCardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(405, 162)
+position = Vector2(372, 162)
+slot_type = "fighter"
 is_opponent_cardslot = true
 image = ExtResource("3_q45ts")
 
 [node name="OpponentCardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(405, 234)
+position = Vector2(372, 234)
+slot_type = "fighter"
 is_opponent_cardslot = true
 image = ExtResource("3_q45ts")
 
 [node name="OpponentCardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(463, 90)
-SlotType = 1
+position = Vector2(430, 90)
+slot_type = "magic"
 is_opponent_cardslot = true
 image = ExtResource("4_hfdif")
 
 [node name="OpponentCardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(463, 162)
-SlotType = 1
+position = Vector2(430, 162)
+slot_type = "magic"
 is_opponent_cardslot = true
 image = ExtResource("4_hfdif")
 
 [node name="OpponentCardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(463, 234)
-SlotType = 1
+position = Vector2(430, 234)
+slot_type = "magic"
 is_opponent_cardslot = true
 image = ExtResource("4_hfdif")
 
 [node name="OpponentCardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(520, 90)
-SlotType = 2
+position = Vector2(487, 90)
+slot_type = "item"
 is_opponent_cardslot = true
 image = ExtResource("5_0gm6l")
 
 [node name="OpponentCardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(520, 162)
-SlotType = 2
+position = Vector2(487, 162)
+slot_type = "item"
 is_opponent_cardslot = true
 image = ExtResource("5_0gm6l")
 
 [node name="OpponentCardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(520, 234)
-SlotType = 2
+position = Vector2(487, 234)
+slot_type = "item"
 is_opponent_cardslot = true
 image = ExtResource("5_0gm6l")
 
 [node name="PlayerCardSlot1" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(245, 234)
+position = Vector2(279, 234)
+slot_type = "fighter"
 image = ExtResource("3_q45ts")
 
 [node name="PlayerCardSlot2" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(244, 162)
+position = Vector2(278, 162)
+slot_type = "fighter"
 image = ExtResource("3_q45ts")
 
 [node name="PlayerCardSlot3" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(244, 90)
+position = Vector2(278, 90)
+slot_type = "fighter"
 image = ExtResource("3_q45ts")
 
 [node name="PlayerCardSlot4" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(186, 90)
-SlotType = 1
+position = Vector2(220, 90)
+slot_type = "magic"
 image = ExtResource("4_hfdif")
 
 [node name="PlayerCardSlot5" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(186, 162)
-SlotType = 1
+position = Vector2(220, 162)
+slot_type = "magic"
 image = ExtResource("4_hfdif")
 
 [node name="PlayerCardSlot6" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(186, 234)
-SlotType = 1
+position = Vector2(220, 234)
+slot_type = "magic"
 image = ExtResource("4_hfdif")
 
 [node name="PlayerCardSlot7" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(128, 90)
-SlotType = 2
+position = Vector2(162, 90)
+slot_type = "item"
 image = ExtResource("5_0gm6l")
 
 [node name="PlayerCardSlot8" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(128, 162)
-SlotType = 2
+position = Vector2(162, 162)
+slot_type = "item"
 image = ExtResource("5_0gm6l")
 
 [node name="PlayerCardSlot9" parent="CardSlots" instance=ExtResource("3_q73jv")]
-position = Vector2(128, 234)
-SlotType = 2
+position = Vector2(162, 234)
+slot_type = "item"
 image = ExtResource("5_0gm6l")
 
 [node name="PlayerDeck" parent="." node_paths=PackedStringArray("card_manager", "hand") instance=ExtResource("4_jrlgh")]
-position = Vector2(46, 186)
+position = Vector2(67, 240)
 card_manager = NodePath("../CardManager")
 hand = NodePath("../PlayerHand")
 
 [node name="PlayerHand" type="Node2D" parent="." node_paths=PackedStringArray("card_manager")]
-position = Vector2(46, 186)
+position = Vector2(67, 240)
 script = ExtResource("3_4alux")
 card_manager = NodePath("../CardManager")
 CARD_WIDTH = 80.0
 
 [node name="PlayerDiscardDeck" parent="." instance=ExtResource("8_g6suj")]
-position = Vector2(46, 56)
 
 [node name="OpponentDeck" parent="." node_paths=PackedStringArray("card_manager", "hand") instance=ExtResource("4_wh8sb")]
-position = Vector2(598, 125)
+position = Vector2(579, 80)
 card_manager = NodePath("../CardManager")
 hand = NodePath("../OpponentHand")
 
 [node name="OpponentHand" type="Node2D" parent="."]
-position = Vector2(598, 125)
+position = Vector2(579, 80)
 script = ExtResource("11_egg0w")
 CARD_WIDTH = 45.0
 HAND_Y_POSITION = 15
 
 [node name="OpponentDiscardDeck" parent="." instance=ExtResource("11_45wsm")]
-position = Vector2(598, 249)
 
 [node name="CardManager" parent="." instance=ExtResource("1_boj55")]
 
@@ -174,22 +177,21 @@ player_discard_deck = NodePath("../PlayerDiscardDeck")
 opponent_discard_deck = NodePath("../OpponentDiscardDeck")
 
 [node name="EndTurnButton" type="Button" parent="."]
-texture_filter = 1
 layout_mode = 0
-offset_left = 25.0
-offset_top = 132.0
-offset_right = 67.0
-offset_bottom = 152.0
-theme_override_font_sizes/font_size = 8
+offset_left = 47.0
+offset_top = 273.0
+offset_right = 87.0
+offset_bottom = 292.0
+theme_override_font_sizes/font_size = 7
 text = "end turn"
 
 [node name="PlayerHealthLabel" type="RichTextLabel" parent="."]
 z_index = 1
 layout_mode = 0
-offset_left = 26.0
-offset_top = 219.0
-offset_right = 66.0
-offset_bottom = 259.0
+offset_left = 46.0
+offset_top = 159.0
+offset_right = 86.0
+offset_bottom = 199.0
 theme_override_font_sizes/normal_font_size = 32
 fit_content = true
 scroll_active = false
@@ -197,10 +199,10 @@ scroll_active = false
 [node name="OpponentHealthLabel" type="RichTextLabel" parent="."]
 z_index = 1
 layout_mode = 0
-offset_left = 579.0
-offset_top = 52.0
-offset_right = 619.0
-offset_bottom = 92.0
+offset_left = 557.0
+offset_top = 111.0
+offset_right = 597.0
+offset_bottom = 151.0
 theme_override_font_sizes/normal_font_size = 32
 fit_content = true
 scroll_active = false
