@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cjtjnfiyfwxn3"]
+[gd_scene load_steps=16 format=3 uid="uid://cjtjnfiyfwxn3"]
 
 [ext_resource type="PackedScene" uid="uid://drej3eqm5x3w4" path="res://scenes/card_manager.tscn" id="1_boj55"]
 [ext_resource type="Texture2D" uid="uid://br2iquxtfkhqe" path="res://images/background1.png" id="1_g5n17"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://chhdn00v78euk" path="res://scenes/player_scenes/player_discard_deck.tscn" id="8_g6suj"]
 [ext_resource type="PackedScene" uid="uid://d34fm3mwfkust" path="res://scenes/opponent_scenes/opponent_discard_deck.tscn" id="11_45wsm"]
 [ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_hand.gd" id="11_egg0w"]
+[ext_resource type="Theme" uid="uid://m3gtjdc00v50" path="res://themes/card_theme.tres" id="15_17irf"]
 
 [node name="card_field" type="Control"]
 layout_mode = 3
@@ -32,6 +33,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_g5n17")
+
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("player_health_label", "opponent_health_label", "end_turn_button", "opponent_deck", "opponent_hand", "player_deck", "card_manager", "player_discard_deck", "opponent_discard_deck")]
+script = ExtResource("8_cpan1")
+player_health_label = NodePath("../PlayerHealthLabel")
+opponent_health_label = NodePath("../OpponentHealthLabel")
+end_turn_button = NodePath("../EndTurnButton")
+opponent_deck = NodePath("../OpponentDeck")
+opponent_hand = NodePath("../OpponentHand")
+player_deck = NodePath("../PlayerDeck")
+card_manager = NodePath("../CardManager")
+player_discard_deck = NodePath("../PlayerDiscardDeck")
+opponent_discard_deck = NodePath("../OpponentDiscardDeck")
 
 [node name="CardSlots" type="Node2D" parent="."]
 
@@ -128,8 +141,9 @@ position = Vector2(128, 234)
 SlotType = 2
 image = ExtResource("5_0gm6l")
 
-[node name="PlayerDeck" parent="." node_paths=PackedStringArray("card_manager", "hand") instance=ExtResource("4_jrlgh")]
+[node name="PlayerDeck" parent="." node_paths=PackedStringArray("battle_manager", "card_manager", "hand") instance=ExtResource("4_jrlgh")]
 position = Vector2(46, 186)
+battle_manager = NodePath("../BattleManager")
 card_manager = NodePath("../CardManager")
 hand = NodePath("../PlayerHand")
 
@@ -140,7 +154,7 @@ card_manager = NodePath("../CardManager")
 CARD_WIDTH = 80.0
 
 [node name="PlayerDiscardDeck" parent="." instance=ExtResource("8_g6suj")]
-position = Vector2(46, 56)
+position = Vector2(46, 91)
 
 [node name="OpponentDeck" parent="." node_paths=PackedStringArray("card_manager", "hand") instance=ExtResource("4_wh8sb")]
 position = Vector2(598, 125)
@@ -154,24 +168,13 @@ CARD_WIDTH = 45.0
 HAND_Y_POSITION = 15
 
 [node name="OpponentDiscardDeck" parent="." instance=ExtResource("11_45wsm")]
-position = Vector2(598, 249)
+position = Vector2(598, 232)
 
 [node name="CardManager" parent="." instance=ExtResource("1_boj55")]
 
-[node name="InputManager" type="Node2D" parent="."]
+[node name="InputManager" type="Node2D" parent="." node_paths=PackedStringArray("battle_manager")]
 script = ExtResource("6_yn2sr")
-
-[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("player_health_label", "opponent_health_label", "end_turn_button", "opponent_deck", "opponent_hand", "player_deck", "card_manager", "player_discard_deck", "opponent_discard_deck")]
-script = ExtResource("8_cpan1")
-player_health_label = NodePath("../PlayerHealthLabel")
-opponent_health_label = NodePath("../OpponentHealthLabel")
-end_turn_button = NodePath("../EndTurnButton")
-opponent_deck = NodePath("../OpponentDeck")
-opponent_hand = NodePath("../OpponentHand")
-player_deck = NodePath("../PlayerDeck")
-card_manager = NodePath("../CardManager")
-player_discard_deck = NodePath("../PlayerDiscardDeck")
-opponent_discard_deck = NodePath("../OpponentDiscardDeck")
+battle_manager = NodePath("../BattleManager")
 
 [node name="EndTurnButton" type="Button" parent="."]
 texture_filter = 1
@@ -186,21 +189,25 @@ text = "end turn"
 [node name="PlayerHealthLabel" type="RichTextLabel" parent="."]
 z_index = 1
 layout_mode = 0
-offset_left = 26.0
-offset_top = 219.0
-offset_right = 66.0
-offset_bottom = 259.0
-theme_override_font_sizes/normal_font_size = 32
+offset_left = 23.0
+offset_top = 226.0
+offset_right = 74.0
+offset_bottom = 261.0
+theme = ExtResource("15_17irf")
+theme_override_font_sizes/normal_font_size = 25
+text = "50"
 fit_content = true
 scroll_active = false
 
 [node name="OpponentHealthLabel" type="RichTextLabel" parent="."]
 z_index = 1
 layout_mode = 0
-offset_left = 579.0
-offset_top = 52.0
-offset_right = 619.0
-offset_bottom = 92.0
-theme_override_font_sizes/normal_font_size = 32
+offset_left = 574.0
+offset_top = 60.0
+offset_right = 627.0
+offset_bottom = 93.0
+theme = ExtResource("15_17irf")
+theme_override_font_sizes/normal_font_size = 25
+text = "50"
 fit_content = true
 scroll_active = false

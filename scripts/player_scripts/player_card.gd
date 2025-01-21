@@ -7,13 +7,11 @@ signal picked_up
 signal dropped
 signal size_changed(new_size)
 
-@export var area : Area2D
 
 var small_collision_size := Vector2(43, 60)
 var large_collision_size := Vector2(66, 99)
 var can_hover := false
 
-@onready var collision_shape := $Area2D/CollisionShape2D
 
 
 func _on_returned_to_hand(duration:=DEFAULT_DURATION) -> void:
@@ -89,15 +87,15 @@ func highlight_card(is_hovered: bool) -> void:
 
 func flip_card() -> void:
 	if !is_in_field:
-		set_card_image(card_large, inside_large)
 		stats_labels.visible = true
+		set_card_image(card_large, inside_large)
 	else:
 		if card_image.texture == card_small:
-			set_card_image(card_back, null)
 			stats_labels.visible = false
+			set_card_image(card_back, null)
 		else:
-			set_card_image(card_small, inside_small)
 			stats_labels.visible = true
+			set_card_image(card_small, inside_small)
 			
 
 

@@ -24,5 +24,8 @@ func initialize_card(drawn_card: String) -> Card:
 	new_card.card_type = card_database.CARDS[drawn_card][3]
 	var inside_small_path : String = new_card.inside_large.get_path().replace("large", "small")
 	new_card.inside_small = load(inside_small_path)
-	#new_card.set_sprite_image(new_card.card_large)
 	return new_card
+
+
+func disable_deck() -> void:
+	visible = false

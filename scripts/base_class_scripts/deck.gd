@@ -30,7 +30,10 @@ func _ready() -> void:
 
 
 func draw_card() -> void:
-	if was_turn_taken or deck.size() == 0: return
+	if was_turn_taken or deck.size() == 0: 
+		print(deck)
+		print("can't draw card")
+		return
 	card_drawn.emit()
 	was_turn_taken = true
 	
@@ -38,7 +41,7 @@ func draw_card() -> void:
 	deck.erase(drawn_card)
 	if deck.size() == 0:
 		disable_deck()
-	
+
 	var new_card : Card = initialize_card(drawn_card)
 	hand.add_to_hand(new_card, DRAW_SPEED)
 

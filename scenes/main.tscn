@@ -38,6 +38,7 @@ ambience_loop = ExtResource("5_pd3ir")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="crt_filter" type="ColorRect" parent="CanvasLayer"]
+visible = false
 z_index = 20
 material = SubResource("ShaderMaterial_1thjl")
 anchors_preset = 15

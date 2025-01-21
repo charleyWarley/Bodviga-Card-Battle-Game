@@ -8,14 +8,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oa4ce"]
 size = Vector2(43, 60)
 
-[node name="CardSlot" type="Node2D"]
+[node name="CardSlot" type="Node2D" node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("1_hjckf")
+collision_shape = NodePath("Area2D/CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_45aey")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 2
 

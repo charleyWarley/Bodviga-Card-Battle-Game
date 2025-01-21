@@ -26,7 +26,6 @@ func update_hand_positions(speed:=REODER_SPEED):
 		var new_position := Vector2(calculate_card_position(i), HAND_Y_POSITION)
 		var card : Card = current_hand[i]
 		card.emit_signal("hand_position_updated", new_position, speed)
-	
 
 
 func remove_card_from_hand(card: Card) -> void:

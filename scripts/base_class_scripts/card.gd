@@ -13,6 +13,7 @@ signal damage_taken(health_remaining: int, is_attacker: bool)
 enum CardSize {SMALL, LARGE}
 enum CardType {FIGHTER, MAGIC, ITEM}
 
+@export var area : Area2D
 @export var card_image : TextureRect
 @export var inside_image : TextureRect
 @export var damage_indicator: Control
@@ -21,7 +22,7 @@ enum CardType {FIGHTER, MAGIC, ITEM}
 @export var defense_label : RichTextLabel
 @export var stats_labels : Control
 @export var shadow : TextureRect
-
+@export var name_label : RichTextLabel
 
 const FLIP_Y := 82.41
 const DEFAULT_DURATION := 0.1
@@ -46,6 +47,7 @@ var return_position_x : float
 @onready var card_small := preload("res://images/card_images/empty_small.png")
 @onready var card_large := preload("res://images/card_images/empty_large.png")
 @onready var card_back := preload("res://images/card_images/card_back.png")
+@onready var collision_shape := $Area2D/CollisionShape2D
 
 
 func _on_card_examined() -> void:
@@ -65,7 +67,6 @@ func _on_card_flipped() -> void:
 	flip_card()
 	var tween2 := get_tree().create_tween()
 	tween2.tween_property(card_image.material, "shader_parameter/yDegrees", 0.0, 0.1)
-	
 
 
 func animate_card_to_position(new_position: Vector2, duration:float=DEFAULT_DURATION) -> void:
@@ -81,18 +82,18 @@ func set_card_image(outside: CompressedTexture2D, inside: CompressedTexture2D) -
 	inside_image.set_texture(inside)
 	if inside == inside_small:
 		health_label.visible = true
+		name_label.visible = false
 		stats_labels.position = SMALL_STATS_POSITION 
 		
 	else:
 		health_label.visible = false
+		name_label.visible = true
 		stats_labels.position = LARGE_STATS_POSITION
 	
 
 func take_damage(damage: int, is_attacker: bool):
-	print(name, " ", damage, " ", is_attacker)
 	if damage <= 0: 
 		damage_blocked.emit()
-		print("damage blocked")
 		return
 	
 	damage_indicator.visible = true
@@ -103,6 +104,7 @@ func take_damage(damage: int, is_attacker: bool):
 	
 	if health <= 0:
 		card_destroyed.emit(self)
+		z_index = 0
 		await get_tree().create_timer(1.0).timeout
 	damage_indicator.visible = false
 	

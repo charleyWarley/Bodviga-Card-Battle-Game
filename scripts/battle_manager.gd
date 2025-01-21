@@ -14,7 +14,7 @@ enum AttackerType {PLAYER, OPPONENT}
 @export var opponent_discard_deck : Node2D
 
 const SCREEN_WIDTH := 638
-const BATTLE_POSITION_OFFSET := -10
+const BATTLE_POSITION_OFFSET := 15
 const TIME_TO_WAIT := 1.0
 const ATTACK_Z_INDEX := 5
 const NON_ATTACK_Z_INDEX := 0
@@ -24,12 +24,17 @@ const STARTING_HEALTH := 50
 var empty_fighter_slots := []
 var opponent_cards_in_field := []
 var player_cards_in_field := []
+var player_cards_used_this_turn := []
 var player_health : int
 var opponent_health : int
-
+var is_player_turn := true
+var is_player_attacking := false
 
 #called when the end turn button is pressed
 func _on_player_turn_ended() -> void:
+	is_player_turn = false
+	card_manager.deselect_card()
+	player_cards_used_this_turn = []
 	start_opponent_turn()
 
 
@@ -49,16 +54,15 @@ func initialize_health() -> void:
 
 
 func start_opponent_turn() -> void:
-	##hide end turn button
+	opponent_deck.was_turn_taken = false
 	end_turn_button.disabled = true
 	end_turn_button.visible = false
 	await get_tree().create_timer(TIME_TO_WAIT).timeout
 	
 	#draw card if opponent deck has cards left
-	if opponent_deck.deck.size() > 0:
+	if opponent_deck.deck.size() != 0:
 		opponent_deck.draw_card()
 		await get_tree().create_timer(TIME_TO_WAIT).timeout
-	
 	#end turn if there's no empty slot
 	if empty_fighter_slots.size() != 0:
 		#find card with highest attack to play from hand and play it
@@ -86,8 +90,14 @@ func direct_attack(attacking_card: Card, attacker: AttackerType) -> void:
 	
 	var new_position_x
 	match attacker:
-		AttackerType.OPPONENT: new_position_x = 0 #opponent attacks left of screen
-		AttackerType.PLAYER: new_position_x = SCREEN_WIDTH #player attacks right of screen
+		AttackerType.OPPONENT: 
+			new_position_x = 0 #opponent attacks left of screen
+		AttackerType.PLAYER: 
+			end_turn_button.disabled = true
+			end_turn_button.visible = false
+			is_player_attacking = true
+			player_cards_used_this_turn.append(attacking_card)
+			new_position_x = SCREEN_WIDTH #player attacks right of screen
 	var new_position := Vector2(new_position_x, attacking_card.position.y)
 	#tween to attack position
 	var tween = get_tree().create_tween()
@@ -110,9 +120,20 @@ func direct_attack(attacking_card: Card, attacker: AttackerType) -> void:
 	
 	attacking_card.z_index = NON_ATTACK_Z_INDEX #return attack card to its original z position
 	await get_tree().create_timer(1.0).timeout
+	if attacker == AttackerType.PLAYER:
+		is_player_attacking = false
+		end_turn_button.disabled = false
+		end_turn_button.visible = true
 
 
 func field_attack(attacking_card: Card, defending_card: Card, attacker: AttackerType) -> void:
+	match attacker:
+		AttackerType.OPPONENT: pass
+		AttackerType.PLAYER: 
+			end_turn_button.disabled = true
+			end_turn_button.visible = false
+			is_player_attacking = true
+			player_cards_used_this_turn.append(attacking_card)
 	attacking_card.z_index = ATTACK_Z_INDEX
 	
 	#tween attacking card to the defending card and back
@@ -154,17 +175,27 @@ func field_attack(attacking_card: Card, defending_card: Card, attacker: Attacker
 	if card_was_destroyed:
 		await get_tree().create_timer(1.0).timeout
 	
+	if attacker == AttackerType.PLAYER:
+		end_turn_button.disabled = false
+		end_turn_button.visible = true
+		is_player_attacking = false
+	
 
 func discard_card(card_to_discard: Card, card_owner: AttackerType) -> void:
 	#move card to discard deck
+	card_to_discard.current_cardslot.is_slot_full = false
+	card_to_discard.current_cardslot.collision_shape.disabled = false
+	card_to_discard.is_in_field = false
 	var new_position : Vector2
 	match card_owner:
 		AttackerType.PLAYER: 
+			card_to_discard.collision_shape.disabled = true
 			new_position = player_discard_deck.position
 			if card_to_discard in player_cards_in_field:
 				player_cards_in_field.erase(card_to_discard)
 		AttackerType.OPPONENT: 
 			new_position = opponent_discard_deck.position
+			empty_fighter_slots.append(card_to_discard.current_cardslot)
 			if card_to_discard in opponent_cards_in_field:
 				opponent_cards_in_field.erase(card_to_discard)
 	card_to_discard.current_cardslot.is_slot_full = false
@@ -173,11 +204,16 @@ func discard_card(card_to_discard: Card, card_owner: AttackerType) -> void:
 	tween.tween_property(card_to_discard, "position", new_position, DURATION)
 	
 
+func select_opponent_card(defending_card: OpponentCard) -> void:
+	var attacking_card : PlayerCard = card_manager.selected_fighter
+	if attacking_card and (defending_card in opponent_cards_in_field) and !is_player_attacking:
+		card_manager.deselect_card() #deselects the attacking card
+		field_attack(attacking_card, defending_card, AttackerType.PLAYER)
+	
 
 func find_best_card() -> void:
 	var opponent_current_hand : Array = opponent_hand.current_hand
 	if opponent_current_hand.size() == 0:
-		end_opponent_turn()
 		return
 	
 	randomize()
@@ -190,11 +226,11 @@ func find_best_card() -> void:
 			best_card = card
 	best_card.animate_card_to_position(random_empty_fighter_slot.position)
 	best_card.emit_signal("card_flipped")
+	best_card.connect("card_destroyed", Callable(random_empty_fighter_slot, "_on_card_destroyed"))
 	
 	opponent_hand.remove_card_from_hand(best_card)
 	best_card.current_cardslot = random_empty_fighter_slot
 	opponent_cards_in_field.append(best_card)
-	
 	await get_tree().create_timer(TIME_TO_WAIT).timeout
 
 
@@ -209,24 +245,18 @@ func return_to_slot(attacking_card: Card) -> void:
 
 
 func end_opponent_turn() -> void:
+	#allow player to make another move#
 	end_turn_button.disabled = false
 	end_turn_button.visible = true
-	
-	##allow player to make another move##
 	player_deck.reset_draw() 
 	card_manager.reset_did_play_fighter_card() 
+	is_player_turn = true
 
 
 func set_player_health_label() -> void:
 	player_health_label.parse_bbcode("[center]" + str(player_health) + "[/center]")
 	
+	
 func set_opponent_health_label() -> void:
 	opponent_health_label.parse_bbcode("[center]" + str(opponent_health) + "[/center]")
 	
-
-func clean(dirty_array: Array) -> Array:
-	var clean_array := []
-	for item in dirty_array:
-		if is_instance_valid(item):
-			clean_array.append(item)
-	return clean_array

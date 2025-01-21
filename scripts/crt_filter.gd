@@ -12,9 +12,11 @@ func _ready() -> void:
 
 
 func shake(intensity: float) ->void:
+	visible = true
 	get_material().set_shader_parameter("crt_ghost", max(10.0, (10.0 * intensity) + ghost))
 	await get_tree().create_timer(0.1).timeout
 	get_material().set_shader_parameter("crt_ghost", ghost)
+	visible = false
 
 
 func set_ghost(new_ghost: Ghosts) -> void:
