@@ -1,13 +1,18 @@
 extends AudioStreamPlayer
 class_name SFX
 
+@export var target : Node2D
+
+@export_group("Sounds")
 @export var sound1 : AudioStream
 @export var sound2 : AudioStream
 @export var sound3 : AudioStream
 @export var sound4 : AudioStream
 @export var sound5 : AudioStream
 @export var sound6 : AudioStream
-@export var target : Node2D
+@export var sound7 : AudioStream
+@export var sound8: AudioStream
+
 
 
 func _ready() -> void:

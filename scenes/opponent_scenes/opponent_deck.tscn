@@ -4,12 +4,10 @@
 [ext_resource type="Script" path="res://scripts/opponent_scripts/opponent_deck.gd" id="1_p6f00"]
 [ext_resource type="PackedScene" uid="uid://1mii1vheth53" path="res://scenes/opponent_scenes/opponent_card.tscn" id="2_4cwj8"]
 
-[node name="OpponentDeck" type="Node2D" node_paths=PackedStringArray("card_manager", "hand")]
+[node name="OpponentDeck" type="Node2D"]
 position = Vector2(67, 77)
 script = ExtResource("1_p6f00")
 card_scene = ExtResource("2_4cwj8")
-card_manager = NodePath("")
-hand = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_egb2t")

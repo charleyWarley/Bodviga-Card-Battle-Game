@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfldq5v2d78v8"
-path="res://.godot/imported/kwartni_large.png-433f59ceaf95f33b62a74c6edc0007a6.ctex"
+uid="uid://dwlamtyf4qrmm"
+path="res://.godot/imported/kettet_large.png-95aff59ba29d52d733ed1d089232030c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/card_images/kwartni_large.png"
-dest_files=["res://.godot/imported/kwartni_large.png-433f59ceaf95f33b62a74c6edc0007a6.ctex"]
+source_file="res://images/card_images/kettet_large.png"
+dest_files=["res://.godot/imported/kettet_large.png-95aff59ba29d52d733ed1d089232030c.ctex"]
 
 [params]
 

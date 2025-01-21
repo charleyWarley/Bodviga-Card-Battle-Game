@@ -3,17 +3,27 @@ class_name OpponentCard
 
 func _ready() -> void:
 	parent = get_parent()
+	set_card_image(card_back, null)
+	health_label.visible = false
 	connect_signals()
+	stats_labels.visible = false
+	await get_tree().create_timer(0.1).timeout
+	defense_label.text = str(defense)
+	attack_label.text = str(power)
+
 
 
 func flip_card() -> void:
 	if !is_in_field:
-		set_sprite_image(card_small)
+		set_card_image(card_small, inside_small)
+		stats_labels.visible = true
 	else:
-		if sprite.texture == card_back:
-			set_sprite_image(card_small)
+		if card_image.texture == card_back:
+			set_card_image(card_small, inside_small)
+			stats_labels.visible = true
 		else:
-			set_sprite_image(card_back)
+			stats_labels.visible = true
+			set_card_image(card_back, null)
 
 
 func connect_signals() -> void:
